@@ -1,0 +1,46 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="dbInventarioModel.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2012" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityContainer Name="dbInventarioModelStoreContainer">
+    <EntitySet Name="Categorias" EntityType="dbInventarioModel.Store.Categorias" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Productos" EntityType="dbInventarioModel.Store.Productos" store:Type="Tables" Schema="dbo" />
+    <AssociationSet Name="FK_Productos_Categorias" Association="dbInventarioModel.Store.FK_Productos_Categorias">
+      <End Role="Categorias" EntitySet="Categorias" />
+      <End Role="Productos" EntitySet="Productos" />
+    </AssociationSet>
+  </EntityContainer>
+  <EntityType Name="Categorias">
+    <Key>
+      <PropertyRef Name="idCategoria" />
+    </Key>
+    <Property Name="idCategoria" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="nombre" Type="nvarchar" Nullable="false" MaxLength="50" />
+    <Property Name="descripcion" Type="nvarchar" Nullable="false" MaxLength="50" />
+    <Property Name="esActivo" Type="bit" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Productos">
+    <Key>
+      <PropertyRef Name="idProducto" />
+    </Key>
+    <Property Name="idProducto" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="nombre" Type="nvarchar" Nullable="false" MaxLength="50" />
+    <Property Name="descripcion" Type="varchar(max)" Nullable="false" />
+    <Property Name="cantidad" Type="int" Nullable="false" />
+    <Property Name="marca" Type="nvarchar" Nullable="false" MaxLength="50" />
+    <Property Name="fechaCreacion" Type="datetime" Nullable="false" />
+    <Property Name="idCategoria" Type="int" Nullable="false" />
+    <Property Name="esActivo" Type="bit" Nullable="false" />
+    <Property Name="unidadMedida" Type="nvarchar(max)" Nullable="false" />
+  </EntityType>
+  <Association Name="FK_Productos_Categorias">
+    <End Role="Categorias" Type="dbInventarioModel.Store.Categorias" Multiplicity="1" />
+    <End Role="Productos" Type="dbInventarioModel.Store.Productos" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Categorias">
+        <PropertyRef Name="idCategoria" />
+      </Principal>
+      <Dependent Role="Productos">
+        <PropertyRef Name="idCategoria" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+</Schema>
